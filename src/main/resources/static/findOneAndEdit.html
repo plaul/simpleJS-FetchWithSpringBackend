@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div>
+    <input id="person-id" placeholder="Add id for person to find">
+    <button id="btn-find">Find Person</button>
+</div>
+
+<form>
+    <p>ID: <span id="id-for-person"></span> </p>
+    <div><input id="f-name" placeholder="firstName" /></div>
+    <br />
+    <div><input id="l-name" placeholder="lastName"></div>
+    <br/>
+    <button id="btn-save">Save Changes</button>
+</form>
+<p id="status"></p>
+<p><a href="/">Back</a></p>
+
+<script>
+    const SERVER_URL = sessionStorage.getItem("SERVER_URL")
+    alert("See Code (findOneAndEdit.html) For What To Do")
+
+
+    document.getElementById("btn-find").onclick = ()=>{
+        /*
+        TODO:
+         Get the Id for the person to find from the input with id = "person-id"
+         Add this to the SERVER_URL (remember a '/' in between) and use fetch to get the person
+         and update the fields in the Form
+         */
+    }
+
+    document.getElementById("btn-save").onclick = (evt)=>{
+        evt.preventDefault()  //Why is this necessary (see what happens without)?
+        /*
+        TODO
+        Use fetch With SERVER_URL and method = PUT to update the Person found in the previous step.
+        Remember you need to provide fetch with an options object for anything but GET-requests as explained here:
+        https://docs.google.com/document/d/1keZvtIhEb7qFpa4LblPJLKETy1CskAf5GP4XczqaN-0/edit#heading=h.fyy0q5w1hdm5
+
+        Detailed steps for what you have to do
+        Create a new object "const personToEdit= {}" and add the fields with values taken from the form
+        This is what you should add to the options body field (again see document above)
+        Get the Id for the person to edit and add to get a URL like this: SERVER_URL +"/" +id;
+        Now use fetch to Update the Person on the server
+        When (if) this was a success update the p-tag with id = "status" with information about this (for example a text representation of the full person returned)
+
+         */
+    }
+
+</script>
+</body>
+</html>
