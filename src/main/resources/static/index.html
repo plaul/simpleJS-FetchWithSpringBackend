@@ -26,19 +26,54 @@
     </tr>
     </thead>
     <tbody id="tbody"></tbody>
-
 </table>
 
 <script>
     //For a separated front and backend you must provide the full URL including protocol to the server
     sessionStorage.setItem("SERVER_URL","api/persons"); //This will be available in all files, as demonstrated below
     const SERVER_URL = sessionStorage.getItem("SERVER_URL");
-    alert("See Code (index.html) For What To Do")
-    /*
-    TODO:
-    Use fetch with SERVER_URL to fetch all persons from the backend a create the required (using map) table-rows
-    to render all persons on the page
-     */
+
+   fetch(SERVER_URL)
+        .then(function(response) {
+            return response.json();
+        })
+        .then(function(data) {
+            console.log(data);
+            makeRows(data)
+        });
+   console.log("")
+    function makeRows(data) {
+        const users = data
+        const rows = users.map(u => `
+         <tr>
+            <td>${(u.id)}</td>
+           <td>${(u.firstName)}</td>
+           <td>${(u.lastName)}</td>
+         </tr>
+        `)
+        document.getElementById("tbody").innerHTML = rows.join("")
+    }
+
+
+
+
+
+
+
+
+
+    //Utility function to escape "untrusted inputs"
+    function encode(str) {
+        str = "" + str
+        str = str.replace(/&/g, "&amp;");
+        str = str.replace(/>/g, "&gt;");
+        str = str.replace(/</g, "&lt;");
+        str = str.replace(/"/g, "&quot;");
+        str = str.replace(/'/g, "&#039;");
+        return str;
+    }
+
+
 
 </script>
 </body>

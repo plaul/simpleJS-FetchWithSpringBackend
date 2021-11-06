@@ -14,31 +14,36 @@
     <div><input id="f-name" placeholder="firstName" /></div>
     <br />
     <div><input id="l-name" placeholder="lastName"></div>
-    <button id="btn-save">Save</button>
+    <button  id="btn-save">Save</button>
 </form>
 <p id="status"></p>
 <p><a href="/">Back</a></p>
 
 
 <script>
+
     const SERVER_URL = sessionStorage.getItem("SERVER_URL");
-    alert("See Code (add.html) For What To Do")
     document.getElementById("btn-save").onclick = (evt)=>{
-        evt.preventDefault() //Why is this required
+        evt.preventDefault()
+        const newPerson = {}
+        newPerson.firstName = document.getElementById("f-name").value
+        newPerson.lastName = document.getElementById("l-name").value
 
-
-        /* TODO
-        Use fetch With SERVER_URL and method = POST to create a new Person.
-        Remember you need to provide fetch with an options object for anything but GET-requests as explained here:
-        https://docs.google.com/document/d/1keZvtIhEb7qFpa4LblPJLKETy1CskAf5GP4XczqaN-0/edit#heading=h.fyy0q5w1hdm5
-
-        Detailed steps for what you have to do
-        Create a new object "const newPerson = {}" and add the fields with values taken from the form
-        This is what you should add to the options body field (again see document above)
-        Now use fetch to Create the new Person on the server
-        When (if) this was a success update the p-tag with id = "status" with information about this (for example the id for the new user)
-         */
+        const options = {
+            method: "POST",
+            headers : {
+                'Content-Type' : 'application/json'
+            },
+            body: JSON.stringify(newPerson)
+        }
+        console.log(options)
+        fetch(SERVER_URL,options)
+            .then(res=>res.json())
+            .then(p=> {
+                document.getElementById("status").innerText = JSON.stringify(p)
+            })
     }
+
 
 
 </script>

@@ -1,7 +1,9 @@
 package sem3.rest_js.demo.rest;
 
+
 import org.springframework.web.bind.annotation.*;
 import sem3.rest_js.demo.entity.Person;
+import sem3.rest_js.demo.errors.NotFoundException;
 import sem3.rest_js.demo.repositories.PersonRepository;
 
 import java.util.List;
@@ -23,8 +25,7 @@ public class PersonResource {
 
     @GetMapping("/{id}")
     Person getOne(@PathVariable("id") int id) {
-        //We will change this to handle error
-        return personRepository.findById(id).get();
+        return personRepository.findById(id).orElseThrow(() -> new NotFoundException("User not found"));
     }
 
     @PostMapping()
